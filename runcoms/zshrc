@@ -11,3 +11,28 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+
+# autocomplete from history
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+
+# autoenv
+source /usr/local/opt/autoenv/activate.sh
+
+# pyenv
+eval "$(pyenv init -)"
+
+# pyenv virtualenv
+eval "$(pyenv virtualenv-init -)"
+
+# pyenv virtualenv wrapper
+source /Users/yosuuf/.pyenv/versions/2.7.8/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/.virtualenvs
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+# rbenv
+eval "$(rbenv init -)"
+
+# paths
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
