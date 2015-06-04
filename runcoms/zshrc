@@ -13,47 +13,26 @@ fi
 # Customize to your needs...
 
 
+# autocomplete from history
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+
 # autoenv
 source /usr/local/opt/autoenv/activate.sh
 
-# We do not need to load pyenv and rbenv if we are enabling the ruby/python
-# modules
-
 # pyenv
-#eval "$(pyenv init -)"
+eval "$(pyenv init -)"
 
 # pyenv virtualenv
-#eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # pyenv virtualenv wrapper
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+source /Users/yosuuf/.pyenv/versions/2.7.8/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/.virtualenvs
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # rbenv
-# eval "$(rbenv init -)"
-
-# colors
-# export LSCOLORS="exfxcxdxbxegedabagacad"
-
-# Android Development Environment 
-export ANT_HOME=/usr/local/opt/ant
-export MAVEN_HOME=/usr/local/opt/maven
-export GRADLE_HOME=/usr/local/opt/gradle
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
-export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
-
+eval "$(rbenv init -)"
 
 # paths
-path=(
-  $ANT_HOME/bin
-  $MAVEN_HOME/bin
-  $GRADLE_HOME/bin
-  $ANDROID_HOME/tools
-  $ANDROID_HOME/platform-tools
-  $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort | tail -1)
-  $path
-)
-
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
