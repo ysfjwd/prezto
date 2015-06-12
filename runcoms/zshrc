@@ -14,8 +14,8 @@ fi
 
 
 # autocomplete from history
-bindkey '\e[A' history-beginning-search-backward
-bindkey '\e[B' history-beginning-search-forward
+# bindkey '\e[A' history-beginning-search-backward
+# bindkey '\e[B' history-beginning-search-forward
 
 # autoenv
 source /usr/local/opt/autoenv/activate.sh
@@ -36,3 +36,6 @@ eval "$(rbenv init -)"
 
 # paths
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+
+# colors
+export LSCOLORS="exfxcxdxbxegedabagacad"
