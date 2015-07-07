@@ -36,6 +36,7 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'git' \
   'osx' \
+  'python' \
 
 #
 # Autosuggestions

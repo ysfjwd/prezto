@@ -24,12 +24,11 @@ source /usr/local/opt/autoenv/activate.sh
 eval "$(pyenv init -)"
 
 # pyenv virtualenv
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 # pyenv virtualenv wrapper
-source /Users/yosuuf/.pyenv/versions/2.7.8/bin/virtualenvwrapper.sh
-export WORKON_HOME=$HOME/.virtualenvs
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # rbenv
 eval "$(rbenv init -)"
