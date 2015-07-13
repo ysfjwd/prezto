@@ -34,7 +34,7 @@ eval "$(pyenv init -)"
 eval "$(rbenv init -)"
 
 # paths
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin:~/.zprezto/scripts
 
 # colors
 export LSCOLORS="exfxcxdxbxegedabagacad"
