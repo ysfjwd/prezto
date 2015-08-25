@@ -72,10 +72,10 @@ function prompt_debuggerpk_setup {
 
   # Set ruby-info parameters.
   zstyle ':prezto:module:ruby:info:version' format 'ruby/[%v]'
-  zstyle ':prezto:module:python:info:virtualenv' format ' ❝ py: %v ❞'
+  zstyle ':prezto:module:python:info:virtualenv' format '❝ py: %v ❞ '
 
   # Define prompts.
-  PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]}$python_info[virtualenv]%f'" ${_clrs[5]}%~%f ❯ "
+  PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in ${_clrs[5]}%~%f ❯ "
   RPROMPT='${git_info:+${(e)git_info[prompt]}}'
 }
 
