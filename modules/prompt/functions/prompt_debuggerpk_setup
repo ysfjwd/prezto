@@ -14,6 +14,8 @@
 #   http://i.imgur.com/gLgVp6Y.png
 #
 
+pmodload 'helper'
+
 function prompt_debuggerpk_precmd {
   # Get Git repository information.
   if (( $+functions[git-info] )); then
@@ -28,6 +30,17 @@ function prompt_debuggerpk_precmd {
     # Get Python information.
   if (( $+functions[python-info] )); then
     python-info
+  fi
+}
+
+function prompt_debuggerpk_pwd {
+  local pwd="${PWD/#$HOME/~}"
+
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_debuggerpk_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_debuggerpk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
   fi
 }
 
@@ -77,6 +90,7 @@ function prompt_debuggerpk_setup {
   zstyle ':prezto:module:python:info:virtualenv' format '❝ py/[%v] ❞ '
 
   # Define prompts.
+  #PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in ${_clrs[5]}%~%f ❯ "
   PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in ${_clrs[5]}%~%f ❯ "
   RPROMPT='${git_info:+${(e)git_info[prompt]}}'
 }
