@@ -16,6 +16,17 @@
 
 pmodload 'helper'
 
+function prompt_debuggerpk_pwd {
+  local pwd="${PWD/#$HOME/~}"
+
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_debuggerpk_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_debuggerpk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+  fi
+}
+
 function prompt_debuggerpk_precmd {
   # Get Git repository information.
   if (( $+functions[git-info] )); then
@@ -31,17 +42,9 @@ function prompt_debuggerpk_precmd {
   if (( $+functions[python-info] )); then
     python-info
   fi
-}
 
-function prompt_debuggerpk_pwd {
-  local pwd="${PWD/#$HOME/~}"
-
-  if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_debuggerpk_pwd="$MATCH"
-    unset MATCH
-  else
-    _prompt_debuggerpk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
-  fi
+  #Sets the prompt
+  prompt_debuggerpk_pwd
 }
 
 function prompt_debuggerpk_setup {
@@ -59,9 +62,9 @@ function prompt_debuggerpk_setup {
   if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     _clrs=(
       "%F{81}"  # Turquoise
-      "%F{166}" # Orange
+      "%F{226}" # Orange
       "%F{135}" # Purple
-      "%F{161}" # Hotpink
+      "%F{200}" # Hotpink
       "%F{118}" # Limegreen
     )
   else
@@ -91,7 +94,7 @@ function prompt_debuggerpk_setup {
 
   # Define prompts.
   #PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in ${_clrs[5]}%~%f ❯ "
-  PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in ${_clrs[5]}%~%f ❯ "
+  PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in "'%F${_clrs[5]}${_prompt_debuggerpk_pwd}%f'"%f ❯ "
   RPROMPT='${git_info:+${(e)git_info[prompt]}}'
 }
 
