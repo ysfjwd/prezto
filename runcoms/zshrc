@@ -13,15 +13,14 @@ fi
 # Customize to your needs...
 
 
-# autocomplete from history
-# bindkey '\e[A' history-beginning-search-backward
-# bindkey '\e[B' history-beginning-search-forward
-
 # autoenv
 source /usr/local/opt/autoenv/activate.sh
 
+# We do not need to load pyenv and rbenv if we are enabling the ruby/python
+# modules
+
 # pyenv
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 # pyenv virtualenv
 #eval "$(pyenv virtualenv-init -)"
@@ -31,10 +30,13 @@ eval "$(pyenv init -)"
 # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # rbenv
-eval "$(rbenv init -)"
-
-# paths
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin:~/.zprezto/scripts
+# eval "$(rbenv init -)"
 
 # colors
-export LSCOLORS="exfxcxdxbxegedabagacad"
+# export LSCOLORS="exfxcxdxbxegedabagacad"
+
+# paths
+path=(
+  /Applications/Postgres.app/Contents/Versions/9.4/bin
+  $path
+)
