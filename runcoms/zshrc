@@ -41,6 +41,7 @@ export MAVEN_HOME=/usr/local/opt/maven
 export GRADLE_HOME=/usr/local/opt/gradle
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
+export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
 
 
 # paths
@@ -50,6 +51,9 @@ path=(
   $GRADLE_HOME/bin
   $ANDROID_HOME/tools
   $ANDROID_HOME/platform-tools
-  $ANDROID_HOME/build-tools/19.1.0
+  $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort | tail -1)
   $path
 )
+
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
