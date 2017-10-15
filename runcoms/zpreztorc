@@ -19,7 +19,7 @@ zstyle ':prezto:*:*' color 'yes'
 # zstyle ':prezto:load' zmodule 'attr' 'stat'
 
 # Set the Zsh functions to load (man zshcontrib).
-# zstyle ':prezto:load' zfunction 'zargs' 'zmv'
+zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
@@ -34,8 +34,11 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'python' \
   'ruby' \
+  'node' \
   'prompt' \
-  'git'
+  'history-substring-search' \
+  'git' \
+  'osx' \
 
 #
 # Autosuggestions
@@ -149,7 +152,7 @@ zstyle ':prezto:module:prompt' theme 'debuggerpk'
 # zstyle ':prezto:module:screen:auto-start' local 'yes'
 
 # Auto start a session when Zsh is launched in a SSH connection.
-# zstyle ':prezto:module:screen:auto-start' remote 'yes'
+zstyle ':prezto:module:screen:auto-start' remote 'yes'
 
 #
 # SSH
