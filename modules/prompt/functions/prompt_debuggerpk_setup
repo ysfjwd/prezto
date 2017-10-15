@@ -13,6 +13,18 @@
 # Screenshots:
 #   http://i.imgur.com/gLgVp6Y.png
 #
+pmodload 'helper'
+
+function prompt_debuggerpk_pwd {
+  local pwd="${PWD/#$HOME/~}"
+
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_debuggerpk_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_debuggerpk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+  fi
+}
 
 function prompt_debuggerpk_precmd {
   # Get Git repository information.
@@ -29,7 +41,11 @@ function prompt_debuggerpk_precmd {
   if (( $+functions[python-info] )); then
     python-info
   fi
+
+  #Sets the prompt
+  prompt_debuggerpk_pwd
 }
+
 
 function prompt_debuggerpk_setup {
   setopt LOCAL_OPTIONS
@@ -44,15 +60,15 @@ function prompt_debuggerpk_setup {
 
   # Use extended color pallete if available.
   if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
-    _prompt_debuggerpk_colors=(
+    _clrs=(
       "%F{81}"  # Turquoise
-      "%F{166}" # Orange
+      "%F{226}" # Orange
       "%F{135}" # Purple
-      "%F{161}" # Hotpink
+      "%F{200}" # Hotpink
       "%F{118}" # Limegreen
     )
   else
-    _prompt_debuggerpk_colors=(
+    _clrs=(
       "%F{cyan}"
       "%F{yellow}"
       "%F{magenta}"
@@ -63,20 +79,24 @@ function prompt_debuggerpk_setup {
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
-  zstyle ':prezto:module:git:info:branch' format "${_prompt_debuggerpk_colors[1]}%b%f"
-  zstyle ':prezto:module:git:info:added' format "${_prompt_debuggerpk_colors[5]}●%f"
-  zstyle ':prezto:module:git:info:deleted' format "${_prompt_debuggerpk_colors[2]}●%f"
-  zstyle ':prezto:module:git:info:modified' format "${_prompt_debuggerpk_colors[4]}●%f"
-  zstyle ':prezto:module:git:info:untracked' format "${_prompt_debuggerpk_colors[3]}●%f"
-  zstyle ':prezto:module:git:info:keys' format 'prompt' '(%b%d%a%m%u)'
+  zstyle ':prezto:module:git:info:branch' format "${_clrs[1]}%b%f"
+  zstyle ':prezto:module:git:info:added' format "${_clrs[5]}✚%f"
+  zstyle ':prezto:module:git:info:deleted' format "${_clrs[2]}✖%f"
+  zstyle ':prezto:module:git:info:modified' format "${_clrs[4]}✱%f"
+  zstyle ':prezto:module:git:info:untracked' format "${_clrs[3]}●%f"
+  zstyle ':prezto:module:git:info:keys' format 'prompt' 'git: [%b] %d%a%m%u'
 
   # Set ruby-info parameters.
   zstyle ':prezto:module:ruby:info:version' format 'ruby/[%v]'
-  zstyle ':prezto:module:python:info:virtualenv' format 'py/[%v]'
+  # zstyle ':prezto:module:python:info:virtualenv' format 'py/[%v]'
+  zstyle ':prezto:module:python:info:virtualenv' format '❝ py/[%v] ❞ '
 
   # Define prompts.
-  PROMPT="${_prompt_debuggerpk_colors[3]}%n%f@${_prompt_debuggerpk_colors[2]}%m%f ${_prompt_debuggerpk_colors[5]}%~%f "'${git_info:+${(e)git_info[prompt]}}'"$ "
-  RPROMPT='%F{blue}${ruby_info[version]}%F{81} $python_info[virtualenv]'
+  # PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f ${_clrs[5]}%~%f "'${git_info:+${(e)git_info[prompt]}}'"$ "
+  # RPROMPT='%F{blue}${ruby_info[version]}%F{81} $python_info[virtualenv]'
+
+  PROMPT="${_clrs[3]}%n%f at ${_clrs[2]}%m%f"'%F${_clrs[4]} $python_info[virtualenv]%f'"in "'%F${_clrs[5]}${_prompt_debuggerpk_pwd}%f'"%f ❯ "
+  RPROMPT='${git_info:+${(e)git_info[prompt]}}'
 }
 
 prompt_debuggerpk_setup "$@"
