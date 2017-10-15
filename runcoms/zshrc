@@ -13,26 +13,64 @@ fi
 # Customize to your needs...
 
 
-# autocomplete from history
-bindkey '\e[A' history-beginning-search-backward
-bindkey '\e[B' history-beginning-search-forward
-
 # autoenv
 source /usr/local/opt/autoenv/activate.sh
 
+# We do not need to load pyenv and rbenv if we are enabling the ruby/python
+# modules
+
 # pyenv
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
 
 # pyenv virtualenv
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 # pyenv virtualenv wrapper
-source /Users/yosuuf/.pyenv/versions/2.7.8/bin/virtualenvwrapper.sh
-export WORKON_HOME=$HOME/.virtualenvs
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # rbenv
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
+
+# colors
+# export LSCOLORS="exfxcxdxbxegedabagacad"
+
+# Android Development Environment 
+# export JAVA_HOME=/Library/Java/Home
+export JAVA_HOME=$(/usr/libexec/java_home)
+export ANT_HOME=/usr/local/opt/ant
+export MAVEN_HOME=/usr/local/opt/maven
+export GRADLE_HOME=/usr/local/opt/gradle
+# export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_HOME=$HOME/Library/Android/sdk
+# export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
+
+# Google Cloud CLI
+
+export CLOUDSDK_PYTHON=/Users/yousuf/.virtualenvs/gcloud/bin/python
+
 
 # paths
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+path=(
+  $ANT_HOME/bin
+  $MAVEN_HOME/bin
+  $GRADLE_HOME/bin
+  $ANDROID_HOME/tools
+  $ANDROID_HOME/platform-tools
+  $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort | tail -1)
+  $path
+)
+
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
+###-tns-completion-start-###
+if [ -f /Users/yousuf/.tnsrc ]; then 
+    source /Users/yousuf/.tnsrc 
+fi
+###-tns-completion-end-###
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.zsh
